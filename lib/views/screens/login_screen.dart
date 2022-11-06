@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoom_clone/views/widgets/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,8 +17,14 @@ class LoginScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Image.asset(
-            'assets/images/onboarding.jpg',
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: Image.asset(
+              'assets/images/onboarding.jpg',
+            ),
+          ),
+          const CustomButton(
+            text: 'Login',
           ),
         ],
       ),
