@@ -23,8 +23,11 @@ class LoginScreen extends StatelessWidget {
               'assets/images/onboarding.jpg',
             ),
           ),
-          const CustomButton(
+          CustomButton(
             text: 'Login',
+            onPressed: () {
+              print('Google Sign in');
+            },
           ),
         ],
       ),
