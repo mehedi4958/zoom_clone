@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:zoom_clone/controllers/auth_controller.dart';
 import 'package:zoom_clone/firebase_options.dart';
 import 'package:zoom_clone/utils/colors.dart';
+import 'package:zoom_clone/views/screens/home_screen.dart';
 import 'package:zoom_clone/views/screens/login_screen.dart';
 
 void main() async {
@@ -22,7 +24,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
       ),
-      home: LoginScreen(),
+      home: StreamBuilder(
+        stream: AuthController().authChanges,
+        builder: (context, snapShot) {
+          if (snapShot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapShot.hasData) {
+            return const HomeScreen();
+          }
+          return LoginScreen();
+        },
+      ),
     );
   }
 }
