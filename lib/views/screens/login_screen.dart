@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           CustomButton(
-            text: 'Login',
+            text: 'Google Sign in',
             onPressed: () {
               _authController.signInWithGoogle();
             },

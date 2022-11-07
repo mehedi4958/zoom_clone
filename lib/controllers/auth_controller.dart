@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -17,5 +19,17 @@ class AuthController {
 
     UserCredential userCredential =
         await _auth.signInWithCredential(credential);
+
+    User? user = userCredential.user;
+
+    if (user != null) {
+      if (userCredential.additionalUserInfo!.isNewUser) {
+        _firestore.collection('users').doc(user.uid).set({
+          'uid': user.uid,
+          'userName': user.displayName,
+          'profilePhoto': user.photoURL,
+        });
+      }
+    }
   }
 }
