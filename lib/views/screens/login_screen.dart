@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/controllers/auth_controller.dart';
+import 'package:zoom_clone/views/screens/home_screen.dart';
 import 'package:zoom_clone/views/widgets/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -30,6 +31,10 @@ class LoginScreen extends StatelessWidget {
             text: 'Google Sign in',
             onPressed: () {
               _authController.signInWithGoogle();
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return const HomeScreen();
+              }));
             },
           ),
         ],
