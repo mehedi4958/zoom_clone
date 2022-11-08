@@ -1,8 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:zoom_clone/controllers/jitsi_meet_controller.dart';
 import 'package:zoom_clone/views/widgets/reusable_icon.dart';
 
 class MeetingScreen extends StatelessWidget {
-  const MeetingScreen({Key? key}) : super(key: key);
+  MeetingScreen({Key? key}) : super(key: key);
+
+  final JitsiMeetController _jitsiMeetController = JitsiMeetController();
+  createNewMeeting() {
+    var random = Random();
+    String roomName = (random.nextInt(10000000) + 10000000).toString();
+    _jitsiMeetController.createMeeting(
+        roomName: roomName, isAudioMuted: true, isVideoMuted: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +26,7 @@ class MeetingScreen extends StatelessWidget {
               ReusableIcon(
                 icon: Icons.videocam,
                 text: 'New Meeting',
-                onPressed: () {
-                  print('New Meeting');
-                },
+                onPressed: createNewMeeting,
               ),
               ReusableIcon(
                 icon: Icons.add_box_rounded,

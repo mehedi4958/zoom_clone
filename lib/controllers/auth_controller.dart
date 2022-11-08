@@ -8,6 +8,8 @@ class AuthController {
 
   Stream<User?> get authChanges => _auth.authStateChanges();
 
+  User? get user => _auth.currentUser;
+
   signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
