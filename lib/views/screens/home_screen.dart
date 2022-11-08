@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
 
   final pages = [
-    MeetingScreen(),
+    const MeetingScreen(),
     const HistoryScreen(),
     const ContactScreen(),
     const SettingScreen(),
