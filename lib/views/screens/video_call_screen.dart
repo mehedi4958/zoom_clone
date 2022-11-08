@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/controllers/auth_controller.dart';
+import 'package:zoom_clone/controllers/jitsi_meet_controller.dart';
 import 'package:zoom_clone/utils/colors.dart';
 
 class VideoCallScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   late TextEditingController nameController;
 
   final AuthController _authController = AuthController();
+  final JitsiMeetController _jitsiMeetController = JitsiMeetController();
 
   @override
   void initState() {
@@ -21,6 +23,15 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     nameController =
         TextEditingController(text: _authController.user!.displayName);
     super.initState();
+  }
+
+  _joinMeeting() {
+    _jitsiMeetController.createMeeting(
+      roomName: meetingIdController.text,
+      isAudioMuted: true,
+      isVideoMuted: true,
+      userName: nameController.text,
+    );
   }
 
   @override
@@ -68,6 +79,22 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
               contentPadding: EdgeInsets.all(10),
             ),
             textAlign: TextAlign.center,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          InkWell(
+            onTap: _joinMeeting,
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Join',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
         ],
       ),
