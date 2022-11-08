@@ -1,9 +1,12 @@
 import 'package:jitsi_meet/feature_flag/feature_flag.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:zoom_clone/controllers/auth_controller.dart';
+import 'package:zoom_clone/controllers/firestore_controller.dart';
 
 class JitsiMeetController {
   final AuthController _authController = AuthController();
+  final FireStoreController _fireStoreController = FireStoreController();
+
   createMeeting(
       {required String roomName,
       required bool isAudioMuted,
@@ -28,6 +31,7 @@ class JitsiMeetController {
         ..audioMuted = isAudioMuted
         ..videoMuted = isVideoMuted;
 
+      _fireStoreController.addMeetingToFireStore(roomName);
       await JitsiMeet.joinMeeting(options);
     } catch (error) {
       print("error: $error");
